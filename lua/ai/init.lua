@@ -4,7 +4,7 @@ local M = {}
 M.opts = {
   api_key = '',
   locale = 'en',
-  alternate_locale = 'zh',
+  alternate_locale = 'vn',
 }
 local win_id
 
