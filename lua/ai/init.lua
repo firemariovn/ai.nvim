@@ -103,13 +103,13 @@ function M.createPopup(initialContent)
     vim.bo[bufnr].modifiable = false
   end
 
-  win_id = vim.api.nvim_open_win(bufnr, false, {
+  win_id = vim.api.nvim_open_win(bufnr, true, {
     relative = 'cursor',
     border = 'single',
     title = 'ai.nvim',
     style = 'minimal',
-    width = 60,
-    height = 20,
+    width = 999,
+    height = 999,
     row = 1,
     col = 0,
   })
@@ -144,7 +144,7 @@ function M.freeStyle(prompt)
   local update = M.createPopup('Asking Gemini...\n\n' .. prompt)
   M.askGemini(prompt, {
     handleResult = function(result)
-      return 'Question:\n\n' .. prompt .. '\n\n' .. result
+      return result
     end,
     callback = update,
   })
