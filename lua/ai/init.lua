@@ -91,6 +91,28 @@ function M.askGemini(prompt, opts)
   })
 end
 
+function M.createBuffer(initialContent)
+  -- -- Close any existing buffers
+  -- vim.cmd("bwipeout!")
+
+  -- Create a new buffer
+  local bufnr = vim.api.nvim_create_buf(false, true)
+
+  local update = function(content)
+    local lines = splitLines(content)
+    vim.bo[bufnr].modifiable = true
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, true, lines)
+    vim.bo[bufnr].modifiable = false
+  end
+
+  -- Open the buffer in a new window
+  vim.api.nvim_command("split")
+  vim.api.nvim_command("b " .. bufnr)
+
+  update(initialContent)
+  return update
+end
+
 function M.createPopup(initialContent)
   M.close()
 
@@ -103,13 +125,13 @@ function M.createPopup(initialContent)
     vim.bo[bufnr].modifiable = false
   end
 
-  win_id = vim.api.nvim_open_win(bufnr, true, {
+  win_id = vim.api.nvim_open_win(bufnr, false, {
     relative = 'cursor',
     border = 'single',
     title = 'ai.nvim',
     style = 'minimal',
-    width = 999,
-    height = 999,
+    width = 60,
+    height = 20,
     row = 1,
     col = 0,
   })
@@ -141,7 +163,7 @@ function M.translate(text)
 end
 
 function M.freeStyle(prompt)
-  local update = M.createPopup('Asking Gemini...\n\n' .. prompt)
+  local update = M.createBuffer('Asking Gemini...\n\n' .. prompt)
   M.askGemini(prompt, {
     handleResult = function(result)
       return result
