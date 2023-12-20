@@ -2,8 +2,6 @@
 
 A Neovim plugin powered by Google Gemini.
 
-https://github.com/gera2ld/ai.nvim/assets/3139113/539834ed-af80-4ded-81f4-26afa80ddfd3
-
 ## Installation
 
 First [get an API key](https://ai.google.dev/tutorials/setup) from Gemini. It's free!
@@ -12,14 +10,14 @@ Using lazy.nvim:
 
 ```lua
 {
-  'gera2ld/ai.nvim',
+  'firemariovn/ai.nvim',
   dependencies = 'nvim-lua/plenary.nvim',
   opts = {
     api_key = 'YOUR_GEMINI_API_KEY', -- or read from env: `os.getenv('GEMINI_API_KEY')`
     -- The locale for the content to be defined/translated into
     locale = 'en',
     -- The locale for the content in the locale above to be translated into
-    alternate_locale = 'zh',
+    alternate_locale = 'vn',
   },
   cmd = { 'GeminiDefine', 'GeminiDefineV', 'GeminiTranslate', 'GeminiAsk' },
 },
@@ -63,6 +61,6 @@ Define the selected word or phrase:
 :GeminiAsk How to add two numbers in TypeScript?
 ```
 
-## Related Projects
+## Credit
 
-- [coc-ai](https://github.com/gera2ld/coc-ai) - A coc.nvim plugin powered by Gemini
+Forked from [ai.nvim](https://github.com/gera2ld/ai.nvim) from gera2ld. Thank you!
